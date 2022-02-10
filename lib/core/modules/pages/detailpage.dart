@@ -42,7 +42,7 @@ class _DetailPageState extends State<DetailPage> {
                         height: 60,
                         width: 60,
                         child: CircleAvatar(
-                          child: Center(child: Text(pp.namalengkapc.text[0], style: TextStyle(fontSize: 32),),),
+                          child: Center(child: Text(pp.namalengkapc.text[0], style: const TextStyle(fontSize: 32),),),
                         ),
                       ),
                       const SizedBox(
