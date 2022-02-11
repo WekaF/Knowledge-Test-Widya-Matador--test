@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 import 'package:matador_apptest/core/data/models/user.dart';
 import 'package:matador_apptest/core/data/provider/user_provider.dart';
@@ -9,7 +7,7 @@ import 'package:matador_apptest/core/modules/controller/userC.dart';
 import 'package:matador_apptest/core/modules/pages/widgets/customCard.dart';
 import 'package:matador_apptest/core/modules/pages/widgets/customappbar.dart';
 import 'package:matador_apptest/core/utils/const.dart';
-import 'package:path/path.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: cPrimary,
         child: Icon(Icons.add),
         onPressed: () {
-          homec.addNote();
+          homec.addUser();
         },
       ),
     );
@@ -105,7 +103,7 @@ class _HomePageState extends State<HomePage> {
             _bottomSheetButton(
               label: "Delete Task",
               onTap: () {
-                homec.deleteNote(user.id!);
+                homec.deleteUser(user.id!);
               },
               clr: Colors.red,
               context: context,
@@ -115,7 +113,7 @@ class _HomePageState extends State<HomePage> {
             _bottomSheetButton(
               label: "Edit",
               onTap: () {
-                homec.editNote(user);
+                homec.editUser(user);
               },
               isClose: true,
               clr: Colors.green,

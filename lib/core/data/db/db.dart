@@ -26,14 +26,14 @@ class DBservice extends GetxService {
     );
   }
 
-  // recuperar todas as notas
+
   Future<List<User>> getAll() async {
     final result = await db.rawQuery('SELECT * FROM $_tableName ORDER BY id');
     print(result);
     return result.map((json) => User.fromMap(json)).toList();
   }
 
-  //criar nova nota
+
   Future<User> save(User user) async {
     final id = await db.rawInsert(
         'INSERT INTO $_tableName (nama, panggilan, nohp, email ,alamat, pekerjaan, kelamin) VALUES (?,?,?,?,?,?,?)',
@@ -51,7 +51,7 @@ class DBservice extends GetxService {
     return user.copy(id: id);
   }
 
-  //atualizar nota
+
   Future<User> update(User user) async {
     final id = await db.rawUpdate(
         'UPDATE $_tableName SET nama = ?, panggilan = ?, nohp = ?, email = ?, alamat = ?, pekerjaan = ?, kelamin = ? WHERE id = ?',
@@ -69,7 +69,7 @@ class DBservice extends GetxService {
     return user.copy(id: id);
   }
 
-  //excluir nota
+
   Future<int> delete(int userId) async {
     final id =
         await db.rawDelete('DELETE FROM $_tableName WHERE id = ?', [userId]);
@@ -78,7 +78,7 @@ class DBservice extends GetxService {
     return id;
   }
 
-  //fechar conexao com o banco de dados, funcao nao usada nesse app
+
   Future close() async {
     db.close();
   }

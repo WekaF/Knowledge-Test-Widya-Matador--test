@@ -23,7 +23,6 @@ class UserController extends GetxController {
   final TextEditingController pekerjaanc = TextEditingController();
   final TextEditingController jeniskelaminc = TextEditingController();
 
-
   final namaf = FocusNode();
   final panggilanf = FocusNode();
   final nohpf = FocusNode();
@@ -32,14 +31,12 @@ class UserController extends GetxController {
   final jenisKelaminf = FocusNode();
   final emailf = FocusNode();
 
-  //recuperar notas para apresentar na tela inicial
   @override
   void onReady() async {
     super.onReady();
     getAll();
   }
 
-  //recuperar todas as notas
   getAll() {
     load(true);
     repo.getAll().then((data) {
@@ -48,8 +45,7 @@ class UserController extends GetxController {
     });
   }
 
-  //tratar formulario para inclusao de uma nota
-  addNote() {
+  addUser() {
     formKey.currentState?.reset();
     namalengkapc.text = '';
     panggilanc.text = '';
@@ -57,14 +53,13 @@ class UserController extends GetxController {
     alamatc.text = '';
     emailc.text = '';
     pekerjaanc.text = '';
-    jeniskelaminc.text ='';
+    jeniskelaminc.text = '';
     title = 'Add User';
-    
+
     Get.to(() => const AddEditPage());
   }
 
-  //tratar formulario para edicao de uma nota passando id via arguments
-  editNote(User user) {
+  editUser(User user) {
     namalengkapc.text = user.nama;
     panggilanc.text = user.panggilan;
     nohpc.text = user.nohp;
@@ -77,34 +72,30 @@ class UserController extends GetxController {
     Get.to(() => const AddEditPage(), arguments: user.id);
   }
 
-  //verificar se o formulario esta validado sem erros
-  //e se um id de nota eh enviado para a tela de edicao
-  //a nota sera atualizada, caso contrario sera criada uma nova nota
   editMode() {
-   
     if (formKey.currentState!.validate()) {
       load(true);
       if (Get.arguments == null) {
-        saveNote();
+        saveUser();
       } else {
-        updateNote();
+        updateUser();
       }
     }
   }
 
-void showUser(User user) {
+  void showUser(User user) {
     namalengkapc.text = user.nama;
     panggilanc.text = user.panggilan;
     nohpc.text = user.nohp;
     alamatc.text = user.alamat;
-    pekerjaanc.text = user.pekerjaan ;
-    emailc.text = user.email ;
+    pekerjaanc.text = user.pekerjaan;
+    emailc.text = user.email;
     jeniskelaminc.text = user.kelamin;
     Get.to(() => const DetailPage());
   }
-  //salvar uma nova nota
-  saveNote() async {
-    final note = User(
+
+  saveUser() async {
+    final user = User(
       nama: namalengkapc.text.trim(),
       panggilan: panggilanc.text.trim(),
       nohp: nohpc.text.trim(),
@@ -113,15 +104,14 @@ void showUser(User user) {
       email: emailc.text.trim(),
       kelamin: jeniskelaminc.text.trim(),
     );
-    repo.save(note).then((data) {
+    repo.save(user).then((data) {
       load(false);
-      refreshNoteList();
+      userListRefresh();
     });
   }
 
-  //atualizar uma nota existente cujo id eh recuperado via arguments
-  updateNote() async {
-    final note = User(
+  updateUser() async {
+    final user = User(
       id: Get.arguments,
       nama: namalengkapc.text.trim(),
       panggilan: panggilanc.text.trim(),
@@ -131,44 +121,25 @@ void showUser(User user) {
       email: emailc.text.trim(),
       kelamin: jeniskelaminc.text.trim(),
     );
-    repo.update(note).then((data) {
+    repo.update(user).then((data) {
       load(false);
-      refreshNoteList();
+      userListRefresh();
     });
   }
 
-  //excluir nota via id
-  deleteNote(int noteId) async {
+  deleteUser(int noteId) async {
     load(true);
     repo.delete(noteId).then((data) {
       load(false);
-      refreshNoteList();
+      userListRefresh();
     });
   }
 
-  // atualizar lista de notas apos uma inclusao, alteracao ou exclusao
-  refreshNoteList() {
-    // recuperar lista de notas
+  userListRefresh() {
     getAll();
-    //fechar dialog
+
     Get.back();
-    //voltar para a lista de notas
+
     Get.back();
   }
-
-  // // validar campo titulo
-  // validarTitulo(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Preencha o campo Título.';
-  //   }
-  //   return null;
-  // }
-
-  // //validar campo conteudo
-  // validarConteudo(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Preencha o campo Conteúdo.';
-  //   }
-  //   return null;
-  // }
 }
