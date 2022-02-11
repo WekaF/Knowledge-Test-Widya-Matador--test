@@ -6,7 +6,6 @@ import 'package:matador_apptest/core/modules/pages/homepage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync(() => DBservice().init());
-
   runApp(const MyApp());
 }
 
