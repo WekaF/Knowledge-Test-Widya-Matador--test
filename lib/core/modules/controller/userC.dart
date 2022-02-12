@@ -54,7 +54,6 @@ class UserController extends GetxController {
     emailc.text = '';
     pekerjaanc.text = '';
     jeniskelaminc.text = '';
-    title = 'Add User';
 
     Get.to(() => const AddEditPage());
   }
@@ -68,7 +67,6 @@ class UserController extends GetxController {
     pekerjaanc.text = user.pekerjaan;
     jeniskelaminc.text = user.kelamin;
 
-    title = 'Edit User';
     Get.to(() => const AddEditPage(), arguments: user.id);
   }
 
@@ -98,7 +96,7 @@ class UserController extends GetxController {
     final user = User(
       nama: namalengkapc.text.trim(),
       panggilan: panggilanc.text.trim(),
-      nohp: nohpc.text.trim(),
+      nohp: '+62 ' + nohpc.text.trim(),
       pekerjaan: pekerjaanc.text.trim(),
       alamat: alamatc.text.trim(),
       email: emailc.text.trim(),
@@ -137,9 +135,9 @@ class UserController extends GetxController {
 
   userListRefresh() {
     getAll();
-
     Get.back();
-
     Get.back();
   }
+
+ 
 }

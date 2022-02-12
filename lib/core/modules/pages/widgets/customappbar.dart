@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class custappbar extends StatelessWidget implements PreferredSizeWidget{
   final String title;
-
-  custappbar(this.title);
+  // final Color? color;
+  custappbar(this.title, );
   @override
   Widget build(BuildContext context) {
     return AppBar(

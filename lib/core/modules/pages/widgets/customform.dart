@@ -6,15 +6,19 @@ import 'package:matador_apptest/core/utils/const.dart';
 class custform extends StatelessWidget {
   const custform({
     Key? key,
+    this.validator,
     required this.controller,
     required this.focusNode,
-    this.hint, this.title,
+    this.hint, this.title, this.autovalide, this.inputType,
   }) : super(key: key);
 
   final TextEditingController controller;
   final FocusNode focusNode;
   final String? hint;
   final String? title;
+  final FormFieldValidator? validator;
+  final AutovalidateMode? autovalide;
+  final TextInputType? inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +52,12 @@ class custform extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
             ),
             child: TextFormField(
+            keyboardType: inputType,
+              autovalidateMode: autovalide,
+              validator: validator,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(
-                  
+                  borderSide: BorderSide.none,
                 ),
                   // labelText: 'nama',
                   hintText: hint),

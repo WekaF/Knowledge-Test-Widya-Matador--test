@@ -1,9 +1,13 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:matador_apptest/core/modules/controller/userC.dart';
 import 'package:matador_apptest/core/modules/pages/widgets/customappbar.dart';
 import 'package:matador_apptest/core/modules/pages/widgets/customform.dart';
+import 'package:matador_apptest/core/modules/pages/widgets/customformNumber.dart';
+import 'package:matador_apptest/core/modules/pages/widgets/customformemail.dart';
 import 'package:matador_apptest/core/utils/const.dart';
 
 class AddEditPage extends StatefulWidget {
@@ -40,13 +44,22 @@ class _AddEditPageState extends State<AddEditPage> {
                   hint: 'Masukkan Panggilan',
                   title: 'Panggilan',
                 ),
-                custform(
+
+                custformNohp(
+                  title: 'Nomer Hp',
+                  hint: 'Masukkan Nomer Hp',
                   controller: controller.nohpc,
                   focusNode: controller.nohpf,
-                  hint: 'Masukkan Nomer Hp',
-                  title: 'No Hp',
+                  inputType: TextInputType.number,
                 ),
-                custform(
+
+                // custform(
+                //   controller: controller.emailc,
+                //   focusNode: controller.emailf,
+                //   hint: 'Masukkan Email',
+                //   title: 'Email',
+                // ),
+                custformemail(
                   controller: controller.emailc,
                   focusNode: controller.emailf,
                   hint: 'Masukkan Email',
@@ -104,22 +117,9 @@ class _AddEditPageState extends State<AddEditPage> {
   }
 
   void validateData() {
-    if (controller.namalengkapc.text.isNotEmpty &&
-        controller.panggilanc.text.isNotEmpty &&
-        controller.nohpc.text.isNotEmpty &&
-        controller.alamatc.text.isNotEmpty &&
-        controller.emailc.text.isNotEmpty &&
-        controller.pekerjaanc.text.isNotEmpty &&
-        controller.jeniskelaminc.text.isNotEmpty) {
+    if (controller.formKey.currentState!.validate()) {
       controller.editMode();
-      Get.back();
-    } else if (controller.namalengkapc.text.isEmpty ||
-        controller.panggilanc.text.isEmpty ||
-        controller.nohpc.text.isEmpty ||
-        controller.emailc.text.isEmpty ||
-        controller.alamatc.text.isEmpty ||
-        controller.pekerjaanc.text.isEmpty ||
-        controller.jeniskelaminc.text.isEmpty) {
+    } else {
       Get.snackbar(
         "Peringatan",
         "Semua Data Harus Diisi.",
